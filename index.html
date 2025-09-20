@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Baseball League Simulator</title>
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+<body>
+  <h1>⚾ 야구 리그 시뮬레이터</h1>
+  <py-script>
+import random
+import pandas as pd
+
+teams = ["난하지도", "안소시스", "신사식약", "아세리미트", "신여한계", "서강로간", "부서시작", "마성엑설", "파천바이글", "지도지누"]
+
+results = {team: {"W": 0, "L": 0, "D": 0, "Runs Scored": 0, "Runs Allowed": 0} for team in teams}
+games = []
+
+def play_game(team1, team2):
+    score1 = random.randint(0, 12)
+    score2 = random.randint(0, 12)
+
+    results[team1]["Runs Scored"] += score1
+    results[team1]["Runs Allowed"] += score2
+    results[team2]["Runs Scored"] += score2
+    results[team2]["Runs Allowed"] += score1
+
+    if score1 > score2:
+        results[team1]["W"] += 1
+        results[team2]["L"] += 1
+    elif score2 > score1:
+        results[team2]["W"] += 1
+        results[team1]["L"] += 1
+    else:
+        results[team1]["D"] += 1
+        results[team2]["D"] += 1
+
+for i in range(len(teams)):
+    for j in range(i+1, len(teams)):
+        play_game(teams[i], teams[j])
+
+standings = []
+for team, record in results.items():
+    win, draw, loss = record["W"], record["D"], record["L"]
+    points = win*3 + draw
+    standings.append((team, win, draw, loss, points))
+
+df = pd.DataFrame(standings, columns=["Team","W","D","L","Points"])
+df = df.sort_values(by=["Points","W"], ascending=[False,False])
+df
+  </py-script>
+</body>
+</html>
