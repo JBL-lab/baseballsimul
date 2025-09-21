@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Baseball League Simulator</title>
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-</head>
-<body>
-  <h1>⚾ 야구 리그 시뮬레이터</h1>
-  <py-script>
 import random
 import pandas as pd
 
@@ -49,6 +38,3 @@ for team, record in results.items():
 df = pd.DataFrame(standings, columns=["Team","W","D","L","Points"])
 df = df.sort_values(by=["Points","W"], ascending=[False,False])
 df
-  </py-script>
-</body>
-</html>
